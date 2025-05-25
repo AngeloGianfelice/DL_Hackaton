@@ -155,7 +155,7 @@ def main(args):
     # Get the directory where the main script is located
     script_dir = os.path.dirname(os.path.abspath(__file__))
     device = torch.device("cuda:" + str(args.device)) if torch.cuda.is_available() else torch.device("cpu")
-    num_checkpoints = args.num_checkpoints if args.num_checkpoints else 3
+    num_checkpoints = args.num_checkpoints 
     
     
 
@@ -275,9 +275,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train and evaluate GNN models on graph datasets.")
     parser.add_argument("--train_path", type=str, help="Path to the training dataset (optional).")
     parser.add_argument("--test_path", type=str, required=True, help="Path to the test dataset.")
-    parser.add_argument("--num_checkpoints", type=int, help="Number of checkpoints to save during training.")
+    parser.add_argument("--num_checkpoints", type=int, default=10, help="Number of checkpoints to save during training.")
     parser.add_argument('--device', type=int, default=1, help='which gpu to use if any (default: 0)')
-    parser.add_argument('--gnn', type=str, default='gin', help='GNN gin, gin-virtual, or gcn, or gcn-virtual (default: gin-virtual)')
+    parser.add_argument('--gnn', type=str, default='gat-virtual', help='GNN gin, gin-virtual, gcn, gcn-virtual, gat or gat-virtual (default: gat-virtual)')
     parser.add_argument('--drop_ratio', type=float, default=0.5, help='dropout ratio (default: 0.5)')
     parser.add_argument('--num_layer', type=int, default=5, help='number of GNN message passing layers (default: 5)')
     parser.add_argument('--emb_dim', type=int, default=300, help='dimensionality of hidden units in GNNs (default: 300)')
