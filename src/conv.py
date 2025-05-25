@@ -101,7 +101,7 @@ class GNN_node(torch.nn.Module):
                 self.convs.append(GATConv(
                     in_channels=emb_dim,
                     out_channels=emb_dim,
-                    heads=2,
+                    heads=1,
                     concat=False,
                     dropout=drop_ratio,
                     edge_dim=7
@@ -189,7 +189,7 @@ class GNN_node_Virtualnode(torch.nn.Module):
                 self.convs.append(GATConv(
                     in_channels=emb_dim,
                     out_channels=emb_dim,
-                    heads=2,
+                    heads=1,
                     concat=False,
                     dropout=drop_ratio,
                     edge_dim=7
