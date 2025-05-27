@@ -1,2 +1,4 @@
 # Ignore datasets folder
 datasets/
+# Ignore Python cache directories
+__pycache__/
