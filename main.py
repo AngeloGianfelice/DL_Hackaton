@@ -2,8 +2,8 @@ import argparse
 import os
 import torch
 from torch_geometric.loader import DataLoader
-from src.loadData import GraphDataset
-from src.utils import set_seed
+from source.loadData import GraphDataset
+from source.utils import set_seed
 from torch.utils.data import random_split
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ import logging
 from tqdm import tqdm
 import gdown
 
-from src.models import GNN 
+from source.models import GNN 
 
 # Set the random seed
 set_seed()
