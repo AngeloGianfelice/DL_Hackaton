@@ -1,0 +1,42 @@
+## GENERAL SETTINGS
+seed: 42
+num_checkpoints: 10
+gnn: gin-virtual
+batch_size: 32
+forget_rate: 0.3 # for Co-teahing
+label_smoothing: 0.1 # for Co-teahing
+noise_prob: 0.2 # for Noisy Losses
+
+## BEST MODEL HYPERPARAMETER FOR EACH DATASET (A,B,C,D)
+A: #values only for testing
+  drop_ratio: 0.4
+  num_layer: 3
+  emb_dim: 512
+  epochs: 100
+  loss: 2 # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+  graph_pooling: mean # mean, max, attention, set2set 
+
+B: #values only for testing
+  drop_ratio: 0.5
+  num_layer: 5
+  emb_dim: 300
+  epochs: 100
+  loss: 3 # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+  graph_pooling: mean # mean, max, attention, set2set 
+   
+C: #values only for testing
+  drop_ratio: 0.5
+  num_layer: 3
+  emb_dim: 1024
+  epochs: 100
+  loss: 1 # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+  graph_pooling: attention # mean, max, attention, set2set  
+    
+D:
+  drop_ratio: 
+  num_layer:
+  emb_dim:
+  epochs:
+  loss: # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+  graph_pooling: # mean, max, attention, set2set  
+  

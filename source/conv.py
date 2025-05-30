@@ -1,10 +1,8 @@
 import torch
 from torch_geometric.nn import MessagePassing
 import torch.nn.functional as F
-from torch_geometric.nn import global_mean_pool, global_add_pool,GATConv
+from torch_geometric.nn import global_add_pool,GATConv
 from torch_geometric.utils import degree
-
-import math
 
 ### GIN convolution along the graph structure
 class GINConv(MessagePassing):

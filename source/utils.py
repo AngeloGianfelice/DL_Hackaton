@@ -4,6 +4,12 @@ import numpy as np
 import tarfile
 import os
 
+def get_dataset(test_path):
+    for dataset in ["A", "B", "C", "D"]:
+        if dataset in test_path:
+            return dataset
+    raise ValueError("No valid dataset identifier (A, B, C, D) found in path.")
+
 def set_seed(seed=777):
     seed = seed
     torch.manual_seed(seed)
