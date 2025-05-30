@@ -61,7 +61,17 @@ class GNN(torch.nn.Module):
         h_node = self.gnn_node(batched_data)
 
         if self.graph_pooling in ["sag", "asap"]:
-            h_node, edge_index, _, batch, _, _ = self.pool(h_node, batched_data.edge_index, batch=batched_data.batch)
+            # Adjust depending on your PyG version/pooling output
+            outputs = self.pool(h_node, batched_data.edge_index, batch=batched_data.batch)
+            # Try to unpack dynamically or check length:
+            if len(outputs) == 6:
+                h_node, edge_index, edge_attr, batch, perm, score = outputs
+            elif len(outputs) == 5:
+                h_node, edge_index, batch, perm, score = outputs
+                edge_attr = None
+            else:
+                raise ValueError(f"Unexpected output length {len(outputs)} from pooling")
+
             h_graph = global_mean_pool(h_node, batch)
 
         elif self.graph_pooling == "edge":
