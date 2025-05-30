@@ -61,15 +61,15 @@ class GNN(torch.nn.Module):
         h_node = self.gnn_node(batched_data)
 
         if self.graph_pooling in ["sag", "asap"]:
-            h_node, _, _, batch, _, _ = self.pool(h_node, batched_data.edge_index, batch=batched_data.batch)
+            h_node, edge_index, _, batch, _, _ = self.pool(h_node, batched_data.edge_index, batch=batched_data.batch)
             h_graph = global_mean_pool(h_node, batch)
 
         elif self.graph_pooling == "edge":
-            h_node, _, batch, _ = self.pool(h_node, batched_data.edge_index, batched_data.batch)
+            h_node, edge_index, batch, _ = self.pool(h_node, batched_data.edge_index, batched_data.batch)
             h_graph = global_mean_pool(h_node, batch)
 
         elif self.graph_pooling == "topk":
-            h_node, _, _, batch, _, _ = self.pool(h_node, batched_data.edge_index, batch=batched_data.batch)
+            h_node, edge_index, _, batch, perm, score = self.pool(h_node, batched_data.edge_index, batch=batched_data.batch)
             h_graph = global_mean_pool(h_node, batch)
 
         else:
