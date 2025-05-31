@@ -4,6 +4,14 @@ This repository contains our solution for a graph classification task with **noi
 
 ---
 
+## 👥 Contributors
+
+| Name          | Email                  |
+|---------------|------------------------|
+| Angelo Gianfelice  | gianfelice.1851260@studenti.uniroma1.it |
+| Stefano Previti    | previti.2151985@studenti.uniroma1.it |
+
+
 ## 📌 Problem Statement
 
 Real-world data often contains incorrect or **noisy labels**, making supervised learning models prone to overfitting and generalization issues. Our goal was to design and evaluate noise-robust GNN models capable of accurate classification under such label corruptions.
@@ -46,6 +54,11 @@ All models are built upon **GIN-Virtual** (Graph Isomorphism Network with a virt
 In the context of noise robustness, the **co-teaching paradigm** is a training strategy for deep learning models where two neural networks are trained simultaneously and collaboratively to combat label noise. 
 Each model selects a small subset of training instances with the lowest loss (assumed to be clean) and teaches it to the other model. This mutual update helps avoid overfitting to noisy labels, as each model provides a form of noise filtering for the other.
 **Key idea**: Small-loss instances are more likely to be correctly labeled, so exchanging these helps both models learn robustly despite noisy data.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9c6c1b38-3042-4742-bd3c-5a3f810d7c22" alt="Example Image" />
+</p>
+
 - Note that in our implementation we chose one of the two model (***Teacher Model***) and use it only at training time to help the other model (***Student Model***), which is the one that we ultimately used for validation/testing.
 Altough this requires much more training time, we reached good results with this approach (especially for dataset B)
 
