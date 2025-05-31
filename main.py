@@ -215,7 +215,7 @@ class co_teaching_loss(torch.nn.Module):
 
 
 def main(args):
-
+    
     config = {
 
         "seed": 42,
