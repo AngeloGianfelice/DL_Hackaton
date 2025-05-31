@@ -14,7 +14,6 @@ from source.utils import set_seed
 from source.models import GNN
 from source.utils import get_dataset
 import argparse
-import yaml
 
 # Set the random seed
 set_seed(42)
@@ -217,10 +216,50 @@ class co_teaching_loss(torch.nn.Module):
 
 def main(args):
 
-    # Load YAML config
-    with open("config.yaml", "r") as file:
-        config = yaml.safe_load(file)
+    config = {
 
+        "seed": 42,
+        "num_checkpoints": 10,
+        "gnn": "gin-virtual",
+        "batch_size": 32,
+        "forget_rate": 0.3,  # for Co-teaching
+        "label_smoothing": 0.1,  # for Co-teaching
+        "noise_prob": 0.2,  # for Noisy Losses
+        
+        "A": {  # TODO
+            "drop_ratio": 0.4,
+            "num_layer": 3,
+            "emb_dim": 512,
+            "epochs": 100,
+            "loss": 2,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+            "graph_pooling": "mean",  # mean, max, attention, set2set
+        },
+        "B": {  # TODO
+            "drop_ratio": 0.5,
+            "num_layer": 5,
+            "emb_dim": 300,
+            "epochs": 100,
+            "loss": 3,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+            "graph_pooling": "mean",  # mean, max, attention, set2set
+        },
+        "C": {  # TODO
+            "drop_ratio": 0.5,
+            "num_layer": 3,
+            "emb_dim": 1024,
+            "epochs": 100,
+            "loss": 1,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+            "graph_pooling": "attention",  # mean, max, attention, set2set
+        },
+        "D": { # TODO
+            "drop_ratio": 0.5,
+            "num_layer": 5,
+            "emb_dim": 256,
+            "epochs": 100,
+            "loss": 2,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
+            "graph_pooling": "mean",  # mean, max, attention, set2set
+        },
+    }
+    
     curr_dataset = get_dataset(args.test_path)
 
     # Get the directory where the main script is located
@@ -253,11 +292,12 @@ def main(args):
     logs_folder = os.path.join(script_dir, "logs", test_dir_name)
     log_file = os.path.join(logs_folder, "training.log")
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
-    # Clear existing logging handlers
-    for handler in logging.root.handlers[:]:
-        logging.root.removeHandler(handler)
-    logging.basicConfig(filename=log_file,  filemode='w', level=logging.INFO, format='%(asctime)s - %(message)s')
-    logging.getLogger().addHandler(logging.StreamHandler())
+    if args.train_path:
+        # Clear existing logging handlers
+        for handler in logging.root.handlers[:]:
+            logging.root.removeHandler(handler)
+        logging.basicConfig(filename=log_file,  filemode='w', level=logging.INFO, format='%(asctime)s - %(message)s')
+        logging.getLogger().addHandler(logging.StreamHandler())
 
     checkpoint_path = os.path.join(script_dir, "checkpoints", f"model_{test_dir_name}_best.pth")
     checkpoints_folder = os.path.join(script_dir, "checkpoints", test_dir_name)
@@ -276,7 +316,7 @@ def main(args):
         val_size = int(0.2 * len(full_dataset))
         train_size = len(full_dataset) - val_size
 
-        generator = torch.Generator().manual_seed(12) #TODO lasciamo 12??
+        generator = torch.Generator().manual_seed(12) 
         train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size], generator=generator)
 
         train_loader = DataLoader(train_dataset, batch_size=config["batch_size"], shuffle=True)
