@@ -226,7 +226,7 @@ def main(args):
         "label_smoothing": 0.1,  # for Co-teaching
         "noise_prob": 0.2,  # for Noisy Losses
         
-        "A": {  # TODO
+        "A": {  
             "drop_ratio": 0.4,
             "num_layer": 3,
             "emb_dim": 512,
@@ -234,7 +234,7 @@ def main(args):
             "loss": 2,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
             "graph_pooling": "mean",  # mean, max, attention, set2set
         },
-        "B": {  # TODO
+        "B": {  
             "drop_ratio": 0.5,
             "num_layer": 5,
             "emb_dim": 300,
@@ -242,7 +242,7 @@ def main(args):
             "loss": 3,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
             "graph_pooling": "mean",  # mean, max, attention, set2set
         },
-        "C": {  # TODO
+        "C": {  
             "drop_ratio": 0.5,
             "num_layer": 3,
             "emb_dim": 1024,
@@ -250,7 +250,7 @@ def main(args):
             "loss": 1,  # 1 Noisy Old, 2 Noisy New, 3 Co-teaching
             "graph_pooling": "attention",  # mean, max, attention, set2set
         },
-        "D": { # TODO
+        "D": { 
             "drop_ratio": 0.5,
             "num_layer": 5,
             "emb_dim": 256,
