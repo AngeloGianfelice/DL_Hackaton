@@ -137,6 +137,8 @@ After numerous trials we finally reached the best results with this configs (our
   - Embedding: 512
   - Graph Pooling: Mean
 - **Notes**: Performed best with a more balanced and regularized setup.
+  
+![Training Results](logs/A/plots/training_progress.png)
 
 ---
 
@@ -150,6 +152,8 @@ After numerous trials we finally reached the best results with this configs (our
   - Graph Pooling: Mean
 - **Notes**: Co-teaching helped discard high-noise labels by filtering out high-loss samples across two models
 
+![Training Results](logs/B/plots/training_progress.png)
+
 ---
 
 ### 🔹 Dataset C
@@ -159,6 +163,8 @@ After numerous trials we finally reached the best results with this configs (our
   - Embedding: 1024
   - Graph Pooling: Attention
 - **Notes**: Larger embeddings and attention pooling helped with capturing patterns in high-noise data.
+  
+![Training Results](logs/C/plots/training_progress.png)
 
 ---
 
@@ -169,6 +175,8 @@ After numerous trials we finally reached the best results with this configs (our
   - Embedding: 256
   - Graph Pooling: Mean
 - **Notes**: Compact model with robust loss was effective for this dataset.
+  
+![Training Results](logs/D/plots/training_progress.png)
 
 ---
 
